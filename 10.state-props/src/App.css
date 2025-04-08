@@ -1,0 +1,18 @@
+body {
+  padding: 20px;
+}
+
+.App {
+  margin: 0 auto;
+  width: 400px;
+  text-align: center;
+}
+
+.App > section {
+  background-color: lightblue;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+

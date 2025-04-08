@@ -12,6 +12,7 @@ function ArrowFun() {
    const func3 = (a, b) => a+b;
    console.log(`func3 : ${func3(1,2)}`);
 
+   // 매개변수가 1개일 때만 소괄호() 생략가능
    const func4 = a => a
    console.log(`func4 :  ${func4(7)}`);
 
