@@ -51,9 +51,9 @@ function App() {
 
     //numount 될때 => return사용
     useEffect(() => {
-      console.log("mount");
-      return () => {
-        console.log('unMount');
+      console.log("mount");  //mount 될 때 호출
+      return () => {         // unmount될 때 호출
+        console.log('unMount');  
       }
     },[]);
 

@@ -1,0 +1,35 @@
+.App {
+  text-align: center;
+}
+
+.header {
+  height: 100px;
+  
+}
+
+.Editor>input {
+  border-radius: 5px;
+  border: 1px solid;
+  padding: 5px;
+}
+.Editor>button {
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: lightcoral;
+}
+
+
+.Todoitem {
+  padding: 10px;
+  margin: 5px;
+  background-color: beige;
+}
+.Todoitem>button {
+  border-radius: 5px;
+  border: 1px solid;
+  margin: 7px;
+  background-color: white;
+}
+
+

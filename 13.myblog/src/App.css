@@ -1,0 +1,25 @@
+.App {
+  text-align: center;
+}
+
+h2 {
+  height: 70px;
+  line-height: 70px;
+  background-color: lightcoral;
+}
+
+span {
+  cursor: pointer;
+}
+
+.list {
+  border-bottom: 1px solid;
+}
+
+.modal {
+  margin-top: 20px 10px;
+  border: 1px solid;
+  background-color: rgb(252, 220, 225);
+  padding: 5px;
+
+}
