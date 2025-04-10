@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Todoitem from "./Todoitem";
-// todos = 배열 4개 들어있음
-const List = ({todos}) => {
+// todos = 넘어온배열을 {todos}풀어서 받음 / 삭제하려고 만든 update
+const List = ({todos, onUpdate}) => {  
     const [search, setSearch] = useState('');
 
     const getSearchData = () => {
@@ -24,8 +24,8 @@ const List = ({todos}) => {
                 }}  />
             <div className="todos_wrapper">
                 {
-                    filterTodos.map((todo) => 
-                        <Todoitem todo={todo} />)
+                    filterTodos.map((todo) =>         
+                        <Todoitem todo={todo} onUpdate={onUpdate} onDelete={onDelete} />)
                     //<Todoitem {...todo} />)
                 }
             </div> 

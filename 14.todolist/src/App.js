@@ -44,32 +44,39 @@ function App() {
     const newItem = {
       id : idRef.current++ ,
       isDone : false,
-      content : content,
+      content : content,          //content를 받아서 넘어와야 하기 때문
       date : new Date().getTime()
     }
     setTodos([newItem, ...todos])   //배열에 4개인 상태 똑같은 주소가 들어오면 랜더링 안되서 풀어서 가지고와야함
   }
 
   // 삭제 시 isDone의 체크박스를 true로 바꾸기
-  const onUpdate = (targetId) => {
-   setTodos(todos.map((todo) => {   //0번배열 들어옴
-      if(todo.id == targetId) {
+  const onUpdate = (targetId) => {   //id를 얻어옴
+    console.log(targetId);
+   setTodos(todos.map((todo) => {   //setTodos호출 후 전체배열을 돌면서 0번배열 들어옴
+      if(todo.id == targetId) {     //선택한 아이디와같으면
         return {
           ...todo,                 // todo 풀어서
-          isDone : !todo.isDone    //기존에 들어있던 todo 에 들어있던 isDone를 !
+          isDone : !todo.isDone    //기존에 들어있던 todo 에 들어있던 isDone를 !(true)
         }
       }
       return todo;  // id:0, isDone:true, content:-, date:date 전체를 return
     })
   )}
+    // setTodos(todos.map((todo) => todo.id == targetId ? {...todo, isDoan : !todo.isDone} : todo))}
 
+    // 삭제하기
+    const onDelete = (targetId) => {
+      setTodos(todos.filter((todo) => todo.id != targetId))
+    }
 
 
   return (
     <div className="App">
       <Header />
-      <Editor onCreate={onCreate} />
-      <List todos={todos} />
+      <Editor onCreate={onCreate} />  {/* 내가적은거 추가하기
+       */}
+      <List todos={todos} onUpdate={onUpdate} />    {/* 위에 만들어둔 4개배열을 list로 보냄 */}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 
-const Editor = ({onCreate}) => {
-    const [content, setContent] = useState('');
+const Editor = ({onCreate}) => {   //app에 있는거 풀어서 받음
+    const [content, setContent] = useState('');    //사용자가 넣을 값
     const contentRef = useRef();
 
     return(
