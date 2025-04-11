@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { Navbar, Container, Nav, Row, Col, Button } from 'react-bootstrap';
 import qwe1 from './img/qwe1.jpg'
-import { createContext, useState } from 'react';
+import { useState } from 'react';
 // import {num1, num2} from './data/ProductList'
 import pList from './data/ProductList';   //js는 안써줘도 됨
 import { Link, Route, Routes, useNavigate } from 'react-router-dom';
@@ -11,29 +11,16 @@ import Cart from './pages/Cart';
 import axios  from 'axios';
 
 /*
-   * SPA 의 단점
-    - 컴포넌트간의 STATE공유  어려움
-
-  * 공유저장 공간 사용
-      1. Context Api : 기본 탑재되어 있음
-        - 잘 안쓰는 이유 : 성능이슈(하나만 변해도 하위의 모든것들을 재랜더링)
-                        재사용이 어렵다
-      2. Redux : 외부 라이브러리
-                  주로 사용
+   *ajax 사용하기
+      - axios : fatch() 사용할 수 있음. json의 형태로 자동 변경
+      1. 설치하기
 */
-
-export let Context1 = createContext();  //만들고 바로 내보내기 한것(문법/법칙)
 
 function App() {
   const [clothes, setClothes] = useState(pList);  
   const [bCount, setbCount] = useState(2); 
  
   let navigate = useNavigate();
-
-  // 재고변경
-  let [stock, setStock] = useState([5,10,7]);  // 각각의 재고 개수를 배열로(3개씩 보이니까)
-
-
   return (
     <div className="App">
 
@@ -83,13 +70,10 @@ function App() {
 
         </>
       } />    
-        <Route path='/detail/:pindex' element={
-          <Context1.Provider value={{stock, clothes}}>   {/* 공유저장공간에 값을 넘겨준 것 2개이상 가능 */}
-          <Detail clothes={clothes}/>
-          </Context1.Provider>
-          } />      
+        <Route path='/detail/:pindex' element={<Detail clothes={clothes}/>} />      
         <Route path='/cart' element={<Cart />} />
         <Route path='/about' element={<div>쇼핑몰소개란</div>} />
+
         <Route path='*' element={<div>없는 페이지 입니다</div>} />
       </Routes>      
     </div>

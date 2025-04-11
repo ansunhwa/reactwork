@@ -1,10 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Container, Row, Col, Button, Nav} from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-
+import { Context1 } from '../App';
 
 function Detail(props) { 
+    /*
+    // useContext(받은 것) 알아서 풀어서 사용
+    let a = useContext(Context1);  // <- 받는 법
+    console.log(a);
+    console.log(a.stock);
+    */
 
+    let {stock, clothes} = useContext(Context1);  //객체분해할당해서
+    console.log(stock);
+    console.log(clothes);
 
     let {pindex} = useParams();     
    
@@ -59,7 +68,12 @@ function Detail(props) {
       <Nav.Item>
         <Nav.Link onClick={() => {setTab(2)}} eventKey="link-2">리뷰</Nav.Link>
       </Nav.Item>
-    </Nav>            
+    </Nav>
+    
+    { /* 1. 삼항연산자 
+    {tab == 0 ? <div>하늘색 원피스</div>  : tab == 1 ? <div>95,100 size</div> : <div>예뻐요</div> } */ }
+                    {/* if ? 값 : ifelse 값 : else 값 */}
+      {/* if문 담아놓음 */}              
     <TabContent tab = {tab} />
         </div>  
     )
@@ -69,6 +83,11 @@ function Detail(props) {
 function TabContent({tab}) {
     let [fade, setFade] = useState('');
 
+    let {stock} = useContext(Context1); // 재 랜더링 해야 함 잘사용X
+    console.log(stock);
+
+    // react 18 버전부터 automatic batching 기능
+    // state함수가 근처에 있으면 합쳐서 한꺼번에 state를 변경
     useEffect(() => {
         setTimeout(() => { setFade('end')}, 100);
         return () => {    //리턴이 있으면 리턴먼저 실행되고 위에 실행됨 위에 시간차를 줘야 함
@@ -78,11 +97,27 @@ function TabContent({tab}) {
 
     return (
         <div  className={fade}>
-            { [<div>옷정보 </div> ,<div>옷사이즈</div>, <div>예뻐요</div>][tab]}
+            { [<div>{stock}</div> ,<div>{stock[1]}</div>, <div>예뻐요</div>][tab]}
         </div>    
     )
 }
 
+/*  // 2. if문으로
+if(tab == 0) {
+    return <div className='start'>하늘색 원피스</div> 
+} else if(tab == 1) {
+    return <div>95,100 size</div>
+} else {
+    return <div>예뻐요</div>
+    }
+*/
 
+// 3. 배열로
+//let tabArr = [<div>하늘색 원피스</div> ,<div>95,100 size</div>, <div>예뻐요</div> ]
+//return tabArr[tab];
+
+/*4. 한줄로
+return [<div>하늘색 원피스</div> ,<div>95,100 size</div>, <div>예뻐요</div>][tab]
+*/
 
 export default Detail;
