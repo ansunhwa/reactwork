@@ -1,18 +1,32 @@
 import { useEffect, useState } from 'react';
 import { Container, Row, Col, Button, Nav} from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useParams, useNavigate } from 'react-router-dom';
+import { addItem } from '../store/store';
+
 
 
 function Detail(props) { 
+    //1. localStorage 가져오기
+    //2. 배열로 변경
+    //3. 배열에 넣기
+    //4. localStorage 넣기
 
+    useEffect(() => {
+        let p = localStorage.getItem('recentProduct')
+            p = JSON.parse(p)
 
-    let {pindex} = useParams();     
-   
-    /*
-    let findId = props.clothes.find(function(v) {
-        return v.id == pid;  고유아이디 지정해서 쓰기!
-    })
-    */
+            if(!p.includes(findId.id)) {
+            p.push(findId.id)
+            localStorage.setItem('recentProduct', JSON.stringify(p))
+        }
+    },[])
+
+    let dispatch = useDispatch();
+    const nav = useNavigate();
+
+    let {pid} = useParams();
+    let findId = props.clothes.find((v) => v.id == pid)
 
     let[alert, setAlert] = useState(true);
 
@@ -38,13 +52,16 @@ function Detail(props) {
         <Container>
       <Row>
         <Col sm={7}>
-            <img src={`${process.env.PUBLIC_URL}/img/qwe${pindex}.jpg`}  width="80%" />
+            <img src={`${process.env.PUBLIC_URL}/img/qwe${findId.id}.jpg`}  width="80%" />
         </Col>
         <Col sm={5}>
-            <h4>{props.clothes[pindex-1].title}</h4>
-            <p>{props.clothes[pindex-1].content}</p>
-            <p>{props.clothes[pindex-1].price}원</p>
-            <Button variant="outline-secondary">주문하기</Button>
+                    <h4>{findId.title}</h4>
+                    <p>{findId.content}</p>
+                    <p>{findId.price}원</p>
+            <Button variant="outline-secondary" onClick={() => {
+                dispatch(addItem({id:findId.id, name:findId.title,  count:1}))
+                nav('/cart')
+            }}>주문하기</Button>
         </Col>
       </Row>
       </Container>
@@ -61,8 +78,42 @@ function Detail(props) {
       </Nav.Item>
     </Nav>            
     <TabContent tab = {tab} />
+    <RecentViewed clothes={props.clothes} />
         </div>  
     )
+}
+
+function RecentViewed({clothes}) {
+    const [recent, setRecent] = useState([]);
+    useEffect(() => {
+        let viewed = JSON.parse(localStorage.getItem('recentProduct')) || []
+                                                 //|| 왼쪽실행   && 오른쪽 실행
+        let products =  viewed.map(id => clothes.find(c => c.id == id))
+
+        setRecent(products);
+    },[clothes])    //clothes가 변할 때 마다
+    
+    return (
+        <div>
+            <h4>최근 본 상품</h4>
+            <table>
+                <tr>
+                    <th>이름 : </th>
+                    <th>가격 : </th>
+                </tr>
+                {
+                    recent.map((item) => 
+                        <tr>
+                            <td>{item.title}</td>
+                            <td>{item.price}원</td>
+                        </tr>
+                    )
+                }
+            </table>
+        </div>
+    )
+                                         
+
 }
 
 

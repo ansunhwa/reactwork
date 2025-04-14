@@ -1,7 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { Navbar, Container, Nav, Row, Col, Button } from 'react-bootstrap';
+import qwe1 from './img/qwe1.jpg'
 import { createContext, useEffect, useState } from 'react';
+// import {num1, num2} from './data/ProductList'
 import pList from './data/ProductList';   //js는 안써줘도 됨
 import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import Detail from './pages/Detail';
@@ -14,6 +16,13 @@ export let Context1 = createContext();  //만들고 바로 내보내기 한것(�
 
 function App() {
 
+   /*
+  // [object Object]의 문자열로 들어감 쓸 수 없음
+  let obj = {addr : '강남구'}
+  localStorage.setItem('addr', obj);
+  */
+
+  // JSON으로 모두 문자열로 변환하여 넣는다
   let obj = {addr : '강남구'}
   let addr = JSON.stringify(obj)
   localStorage.setItem('addr', addr);
@@ -35,11 +44,10 @@ function App() {
   let u = JSON.parse(storageUser) // object로 변경
   console.log(u.name)
 
-  // 최근에 본 상품 보여주기
+  // 문. 최근에 본 상품 보여주기
   useEffect(() => {
-    if(!localStorage.getItem('recentProduct')){
+    if(localStorage.getItem('recentProduct'))
     localStorage.setItem('recentProduct', JSON.stringify( [] ))
-  }
   },[])
 
 

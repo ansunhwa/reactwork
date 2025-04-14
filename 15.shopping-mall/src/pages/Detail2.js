@@ -15,7 +15,7 @@ function Detail(props) {
     console.log(stock);
     console.log(clothes);
 
-    let {pindex} = useParams();     
+    let {pindex} = useParams();  // id받는 부분   
    
     /*
     let findId = props.clothes.find(function(v) {
@@ -28,14 +28,16 @@ function Detail(props) {
     let[tab, setTab] = useState(0);
 
     useEffect(() => {
-       setTimeout(() => {setAlert(false)}, 3000);
-    },)  //  [] 업데이트 될 때마다 호출 -> 넣지않기
+       setTimeout(() => {setAlert(false)}, 3000)
+        return () => {
+            clearTimeout(timer);
+        }
+    },[])  //  [] 업데이트 될 때마다 호출 -> 넣지않기
 
     let [detailfade, setDetailFade] = useState('start');
 
     useEffect(() => {
          setDetailFade('end')
-      
     },[])   //tab이 재랜더링 될 때마다
 
 

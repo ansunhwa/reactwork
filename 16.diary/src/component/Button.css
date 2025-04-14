@@ -1,0 +1,16 @@
+.button {
+    background-color: lightslategrey;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+.button_green {
+    background-color: darkolivegreen;
+    color: white;
+}
+
+.button_red {
+    background-color: rgb(207, 80, 80);
+    color: white;
+}

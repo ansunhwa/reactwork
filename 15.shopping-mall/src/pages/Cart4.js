@@ -1,7 +1,8 @@
-import { Button, Table } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import Table from 'react-bootstrap/Table';
 import {useSelector, useDispatch} from 'react-redux';
-import { countIncrease } from '../store/store'
-import user1 from '../store/userSlice';
+import { changeName } from '../store/store';
+import { ageUpdate, changeName1 } from '../store/userSlice';
 
 /*
     * Redux 변경하기
@@ -12,15 +13,26 @@ import user1 from '../store/userSlice';
 function Cart() {
     // 원하는 것만 가져오기
     let user = useSelector((state) => state.user)
+    console.log(user);
+
+    let stock = useSelector((state) => state.stock)  //배열로 되어있음
+
     let cart = useSelector((state) => state.cart)
+
+    let user1 = useSelector((state) => state.user1)
+
     //변경/ store.js에 요청을 보내주는 함수
     let dispatch = useDispatch()
-    //let stock = useSelector((state) => state.stock)  //배열로 되어있음
-    //let user1 = useSelector((state) => state.user1)
+  
     
+
     return(
         <div>
-            {user1.name}의 장바구니🛒 <br/>
+            {user}의 장바구니🛒 <br/>
+            이름 : {user1.name}<br/>
+            나이: {user1.age}<br/>
+            <Button onClick={() => {dispatch(changeName1())}}>이름바꾸기</Button>
+            <Button onClick={() => {dispatch(ageUpdate(3))}}>나이바꾸기</Button>
             <Table  striped bordered hover >
       <thead>
         <tr>
@@ -37,9 +49,9 @@ function Cart() {
                     <td>{v.id}</td>
                     <td>{v.name}</td>
                     <td>{v.count}</td>
-                    <td><Button variant="outline-info" onClick={() => {
-                                    dispatch(countIncrease(v.id))
-                                }}>+</Button></td>
+                    <td><Button variant="outline-secondary" onClick={() => {
+                        dispatch(changeName())
+                    }} > 이름바꾸기 </Button></td>
                 </tr>
             )
         }

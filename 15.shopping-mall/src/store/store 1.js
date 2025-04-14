@@ -1,10 +1,10 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
-
-import user from './userSlice'
-
+//import user1 from '/.userSlice';
+//import user1 from '/.userSlice';
+import {changeName} from './store';
 
 //1. createSlice를 만든다  //만들어 놓은 상태, 바깥에서 사용 X 등록해줘야 함
-/*
+
 let user = createSlice({  
     name : 'user',
     initialState : 'kim',  //변경할때 , 부터 ->
@@ -14,6 +14,7 @@ let user = createSlice({
         }
     }
 }) 
+export let {changeName} = user.actions;
   //export 해야 함 let{내가정한변수명} = user.actions 문법 default쓰면X
 
 /*
@@ -61,15 +62,11 @@ let cart = createSlice({
     ],
     reducers : {
         countIncrese(state, action) {
-            let i = state.findIndex(a => a.id == action.payload)
-            state[i].count++
-        },
-        addItem(state, action) {
-            state.push(action.payload)
+            state.findIndex(a => a.id == action.payload)
+            state[i].count++ 
         }
     }
 })
-export let { countIncrease, addItem } = cart.actions
 
 
 export default configureStore({   //여기에 만들면 다 가져다가 사용할 수 있다
@@ -78,6 +75,7 @@ export default configureStore({   //여기에 만들면 다 가져다가 사용�
         //   내맘대로(이름) : user.reducer  반드시 내보내기 해야 사용 가능
         user : user.reducer ,
         stock : stock.reducer ,
-        cart : cart.reducer
+        cart : cart.reducer,
+        user1 : user1.reducer
     }
 })

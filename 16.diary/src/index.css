@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbit&family=Poor+Story&display=swap');
+
+/*다운로드 하여 public 에 넣었을 때
+@font-face {   
+  font-family: 글꼴명;
+  src: url('/public/글꼴명.ttf');
+}  */
+
+body {
+  font-family: "Orbit", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+html, body {
+  margin: 0;
+  width: 100%;
+  background-color: rgb(245, 253, 255);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
