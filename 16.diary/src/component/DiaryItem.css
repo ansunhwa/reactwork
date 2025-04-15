@@ -1,0 +1,24 @@
+.DiaryItem {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    padding: 10px 0;
+    margin: 5px;
+    border-bottom: 1px solid;
+}
+
+
+.img_section{
+    width: 120px;
+    height: 70px;
+
+    display: flex;
+}
+.info_section {
+    flex: 1;
+    cursor: pointer;
+}
+.button_section {
+    height: 80px;
+    line-height: 60px;
+}

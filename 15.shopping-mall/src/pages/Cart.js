@@ -1,7 +1,7 @@
 import { Button, Table } from 'react-bootstrap';
 import {useSelector, useDispatch} from 'react-redux';
-import { countIncrease } from '../store/store'
-import user1 from '../store/userSlice';
+import { countIncrese } from '../store/store'
+//import user1 from '../store/userSlice';
 
 /*
     * Redux 변경하기
@@ -20,7 +20,7 @@ function Cart() {
     
     return(
         <div>
-            {user1.name}의 장바구니🛒 <br/>
+            {user.name}의 장바구니🛒 <br/>
             <Table  striped bordered hover >
       <thead>
         <tr>
@@ -38,7 +38,7 @@ function Cart() {
                     <td>{v.name}</td>
                     <td>{v.count}</td>
                     <td><Button variant="outline-info" onClick={() => {
-                                    dispatch(countIncrease(v.id))
+                                    dispatch(countIncrese(v.id))
                                 }}>+</Button></td>
                 </tr>
             )

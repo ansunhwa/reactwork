@@ -3,6 +3,7 @@ import "./Button.css";
     text : 버튼의 글씨
     type : 일반버튼, 초록, 빨강 버튼인지
     onclick : 버튼이 클릭되었을 때 무엇을 받을 지(props로 받음)
+    어디서든 버튼을 받아서 사용할 수있음
 */
 
 const Button = ({text, type, onClick}) => {   //매개변수,받을 값

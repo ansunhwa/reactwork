@@ -6,7 +6,7 @@
   src: url('/public/글꼴명.ttf');
 }  */
 
-body {
+* {
   font-family: "Orbit", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -15,10 +15,20 @@ body {
 html, body {
   margin: 0;
   width: 100%;
-  background-color: rgb(245, 253, 255);
+  background-color: rgb(219, 244, 250);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+#root {
+  background-color: white;
+  width: 600px;
+  margin: 0 auto;
+  min-height: 100vh;
+  height: 100%;
+  padding: 0 20px;
+  box-shadow: lightgray 0px 0px 30px 0px;
 }
