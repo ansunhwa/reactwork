@@ -26,6 +26,9 @@ const Detail = (() => {
         leftChild={<Button text={"이전"} onClick={() => nav(-1)}/>}
         />
         <Edit initData={showItem} />
+        <section>
+            <h4>오늘의 기분</h4>
+        </section>
     </div>
     )
 })
