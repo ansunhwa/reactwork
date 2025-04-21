@@ -1,3 +1,4 @@
+import './Write.css';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -9,6 +10,12 @@ import { useNavigate } from "react-router-dom";
         const nav = useNavigate();
 
         const submit = () => {    //등록버튼 클릭시 실행되는 함수
+            // 비어있는부분이 없는지 확인
+            if (!writer.trim() || !title.trim() || !content.trim()) {
+              alert("모든 항목을 입력해주세요!");
+              return;
+            }
+            
             const newPost = {
                 id : post.length +1,  // 현재 글 + 1
                 title,
@@ -24,10 +31,10 @@ import { useNavigate } from "react-router-dom";
         }
 
         return(
-            <div>
+            <div className="write">
             <h4>게시글 작성하기</h4>
             
-            <table>
+            <table className="writetable">
             <tbody>
               <tr>
                 <td>작성자 :</td>
@@ -42,9 +49,9 @@ import { useNavigate } from "react-router-dom";
                 <td><textarea value={content} onChange={(e) => setContent(e.target.value)}/></td>
               </tr>
               <tr>
-                <td colSpan={2}>
-                  <button onClick={submit}>등록</button>
-                  <button onClick={() => {
+                <td className="writebtn" colSpan={2}>
+                  <button className="wbtn" onClick={submit}>등록</button>
+                  <button className="wbtn" onClick={() => {
                     setWriter("");
                     setTitle("");
                     setContent("");

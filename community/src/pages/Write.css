@@ -1,0 +1,57 @@
+.write {
+    max-width: 1000px;  
+    margin: 0 auto; 
+    padding: 20px;
+}
+
+.writetable  {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.writetable td {
+    padding: 5px 0px;
+}
+
+.writetable input {
+    width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  margin: 5px;
+  background-color: lightgray;
+  border-radius: 10px;
+  border: none;
+}
+
+input:focus {
+    outline: none;
+    border: 1px solid #3f528c;
+}
+
+.writetable textarea {
+  width: 100%;
+  height: 300px;
+  padding: 10px;
+  box-sizing: border-box;
+  margin: 5px;
+  background-color: lightgray;
+  border-radius: 10px;
+  border: none;
+}
+
+textarea:focus {
+    outline: none;
+    border: 1px solid #3f528c;
+}
+
+.writebtn {
+    text-align: right;
+}
+
+.wbtn {
+    background-color: #3f528c;
+    color: white;
+    padding: 10px 10px;
+    margin: 5px;
+    border-radius: 10px;
+}
