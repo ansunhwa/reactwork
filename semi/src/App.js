@@ -1,17 +1,21 @@
-// src/App.js
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-import Navbar from './components/Navbar';
-import Main from './page/main';
-import Calories from './page/calories';
-import Challenge from './page/challenge';
-import Exercise from './page/exercise';
-import Community from './page/community';
-import Calendar from './page/calendar';
-import MyInfo from './page/myinfo';
-import Login from './page/login';
-import SignUp from './page/SignUp';
+// 컴포넌트들 import
+import Navbar from './components/Navbar/Navbar';  
+import Main from './page/Main/main';  
+import Calories from './page/Calories/calories';  
+import Challenge from './page/Challenge/challenge';  
+import Exercise from './page/Exercise/exercise';  
+import Community from './page/Community/pages/Community';  // 경로 수정: 대소문자 일치
+import Calendar from './page/Calendar/calendar';  
+import MyInfo from './page/MyInfo/myinfo';  
+import Login from './page/Login/login';  
+import SignUp from './page/SignUp/SignUp';  
+import Write from './page/Community/pages/Write';  // 글 작성 페이지 추가
+import Detail from './page/Community/pages/Detail';  // Detail 페이지 추가
+import MyPost from "./page/Community/pages/MyPost";
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -19,6 +23,13 @@ function App() {
 
   useEffect(() => {
     const stored = localStorage.getItem('isLoggedIn');
+    // 💡 개발용 우회: DB 없이도 로그인 상태로 진입
+    // const isDevMode = true; // ← 필요 없을 때 false로 바꾸면 원래대로 돌아옴
+    // if (isDevMode) {
+    //   setIsLoggedIn(true);
+    //   setIsAuthLoaded(true);
+    //   return;
+    // }
     if (stored === 'true') {
       setIsLoggedIn(true);
     }
@@ -40,27 +51,27 @@ function App() {
 
   return (
     <Router>
-      {isLoggedIn && (
-        <Navbar
-          isLoggedIn={isLoggedIn}
-          handleLogout={handleLogout}
-          isAuthLoaded={isAuthLoaded}
-        />
-      )}
+      <Navbar
+        isLoggedIn={isLoggedIn}
+        handleLogout={handleLogout}
+        isAuthLoaded={isAuthLoaded}
+      />
       <Routes>
-        {/* ✅ 로그인 안됐으면 로그인 페이지, 로그인 됐으면 메인으로 이동 */}
         <Route
           path="/"
           element={isLoggedIn ? <Navigate to="/main" replace /> : <Login setIsLoggedIn={handleLogin} />}
         />
-        <Route path="/signup" element={<SignUp />} />
         <Route path="/main" element={isLoggedIn ? <Main /> : <Navigate to="/" replace />} />
+        <Route path="/signup" element={<SignUp setIsLoggedIn={handleLogin} />} />
         <Route path="/calendar" element={isLoggedIn ? <Calendar /> : <Navigate to="/" replace />} />
         <Route path="/calories" element={isLoggedIn ? <Calories /> : <Navigate to="/" replace />} />
         <Route path="/challenge" element={isLoggedIn ? <Challenge /> : <Navigate to="/" replace />} />
         <Route path="/exercise" element={isLoggedIn ? <Exercise /> : <Navigate to="/" replace />} />
         <Route path="/community" element={isLoggedIn ? <Community /> : <Navigate to="/" replace />} />
+        <Route path="/post/:id" element={isLoggedIn ? <Detail /> : <Navigate to="/" replace />} /> {/* 게시글 상세 페이지 라우트 추가 */}
         <Route path="/myinfo" element={isLoggedIn ? <MyInfo /> : <Navigate to="/" replace />} />
+        <Route path="/write" element={isLoggedIn ? <Write /> : <Navigate to="/" replace />} /> {/* 글 작성 페이지 라우트 */}
+        <Route path="/mypost" element={<MyPost />} />
       </Routes>
     </Router>
   );
