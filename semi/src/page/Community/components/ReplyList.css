@@ -1,0 +1,13 @@
+button.reply-button {
+    width: 50px;
+    height: 30px;
+    font-size: 13px;
+    font-weight: 500; /* 너무 굵지 않게 */
+    background-color: #3d509a;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 0; /* 버튼 안의 여백 제거 */
+    line-height: 1; /* 글자 세로 가운데 정렬 */
+}
