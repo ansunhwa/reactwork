@@ -41,7 +41,7 @@ const SignUp = () => {
     } catch (error) {
       console.error("아이디 중복 확인 실패:", error);
     }
-  };
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -126,25 +126,25 @@ const SignUp = () => {
         {/* 캐릭터 선택 */}
         <div className="character-container">
           <img
-            src="https://via.placeholder.com/70?text=Char1"
+            src="/img/p1.png"
             alt="Character 1"
             className={selectedCharacter === 0 ? "selected" : ""}
             onClick={() => handleCharacterSelect(0)}
           />
           <img
-            src="https://via.placeholder.com/70?text=Char2"
+            src="/img/p2.png"
             alt="Character 2"
             className={selectedCharacter === 1 ? "selected" : ""}
             onClick={() => handleCharacterSelect(1)}
           />
           <img
-            src="https://via.placeholder.com/70?text=Char3"
+            src="/img/p3.png"
             alt="Character 3"
             className={selectedCharacter === 2 ? "selected" : ""}
             onClick={() => handleCharacterSelect(2)}
           />
           <img
-            src="https://via.placeholder.com/70?text=Char4"
+            src="/img/p4.png"
             alt="Character 4"
             className={selectedCharacter === 3 ? "selected" : ""}
             onClick={() => handleCharacterSelect(3)}

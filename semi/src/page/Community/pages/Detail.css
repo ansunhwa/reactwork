@@ -5,8 +5,10 @@
     padding: 2rem;
     margin: 2rem auto;
     max-width: 800px;
-    backdrop-filter: blur(3px); 
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
 }
+
 
 .dtitle {
     font-size: 24px;
@@ -42,3 +44,37 @@
     cursor: pointer;
     margin-bottom: 17px;
 }
+
+.detail-button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 30px;
+  }
+  
+  .detail-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+  }
+  
+  .detail-button.edit {
+    background-color: #3d509a;  
+    color: white;
+  }
+  
+  .detail-button.edit:hover {
+    background-color: #2c3e7f;
+  }
+  
+  .detail-button.delete {
+    background-color: #ff5b5b;
+    color: white;
+  }
+  
+  .detail-button.delete:hover {
+    background-color: #e03e3e;
+  }

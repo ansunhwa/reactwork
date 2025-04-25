@@ -58,7 +58,10 @@
 }
 
 /* 글 작성 버튼 */
-.write-button-click, .my-post-button {
+.community-write-button {
+  white-space: nowrap;      
+  display: inline-block;    
+  text-align: center;      
   background-color: #3d509a;
   color: white;
   border: none;
@@ -68,6 +71,9 @@
   margin-bottom: 17px;
 }
 
+.write-button:hover {
+  background-color: #2f3f7f;
+}
 
 /* 게시글 리스트 */
 .list-container {

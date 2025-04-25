@@ -1,13 +1,50 @@
-button.reply-button {
-    width: 50px;
-    height: 30px;
-    font-size: 13px;
-    font-weight: 500; /* 너무 굵지 않게 */
-    background-color: #3d509a;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    padding: 0; /* 버튼 안의 여백 제거 */
-    line-height: 1; /* 글자 세로 가운데 정렬 */
+.reply-section {
+  margin-top: 30px;
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+}
+
+.reply-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.reply-input {
+  flex: 1;
+  padding: 8px;
+}
+
+.reply-button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.reply-list {
+  list-style: none;
+  padding: 0;
+}
+
+.reply-item {
+  margin-bottom: 10px;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 5px;
+}
+
+.reply-user {
+  font-weight: bold;
+}
+
+.reply-date {
+  margin-left: 10px;
+  color: #666;
+}
+
+.delete-btn {
+  margin-left: 10px;
+  color: red;
+  cursor: pointer;
 }
