@@ -1,22 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import {
+  BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer, Legend, Cell
+} from 'recharts';
 import './main.css';
 
 const Main = () => {
   const [user, setUser] = useState(null);
   const [todayCalories, setTodayCalories] = useState(null);
   const [burnedCalories, setBurnedCalories] = useState(null);
+  const [mealCalories, setMealCalories] = useState({ breakfast: 0, lunch: 0, dinner: 0 });
+  const [exerciseTypes, setExerciseTypes] = useState([]);
 
-  //하단이미지
-  const categoryImages = {
-    유산소: "/img/ex-1.png",
-    근력: "/img/ex-2.png",
-    일상활동: "/img/ex-3.png",
-    유연성: "/img/ex-4.png",
-    균형감각: "/img/ex-5.png",
+  const mainCharacterImages = {
+    "0": "/img/main1.png",
+    "1": "/img/main2.png",
+    "2": "/img/main3.png",
+    "3": "/img/main4.png",
   };
 
-  // ✅ 정확한 한국 시간 기준 날짜 함수
+  const typeIconMap = {
+    유산소: "/img/img1.png",
+    근력: "/img/img2.png",
+    유연성: "/img/img3.png",
+    일상활동: "/img/img4.png",
+    균형감각: "/img/img5.png",
+  };
+
   const getKSTDateString = () => {
     const now = new Date();
     const kst = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
@@ -25,37 +35,25 @@ const Main = () => {
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
-    if (!userId) {
-      console.error("userId가 없습니다.");
-      return;
-    }
+    if (!userId) return;
 
-    // 사용자 정보
-    axios.get(`http://localhost:8080/users/${userId}`)
-      .then(res => setUser(res.data))
-      .catch(err => console.error("사용자 정보를 불러오는 데 실패했습니다.", err));
-
-    // ✅ KST 기준 오늘 날짜
     const today = getKSTDateString();
 
-    // 섭취 칼로리
-    axios.get(`http://localhost:8080/food-logs/${userId}?date=${today}`)
-      .then(res => {
-        const total = res.data.reduce((sum, item) => sum + item.totalCalories, 0);
-        setTodayCalories(total);
-      })
-      .catch(err => {
-        console.error("오늘 섭취 칼로리 불러오기 실패", err);
-        setTodayCalories(0);
+    axios.get(`http://localhost:8080/users/${userId}`).then(res => setUser(res.data));
+    axios.get(`http://localhost:8080/food-logs/${userId}?date=${today}`).then(res => {
+      const categorized = { breakfast: 0, lunch: 0, dinner: 0 };
+      res.data.forEach(item => {
+        const meal = item.MEAL_TIME || item.mealTime;
+        const kcal = item.TOTAL_CALORIES || item.totalCalories || 0;
+        const key = meal === "아침" ? "breakfast" : meal === "점심" ? "lunch" : meal === "저녁" ? "dinner" : null;
+        if (key) categorized[key] += kcal;
       });
+      setMealCalories(categorized);
+      setTodayCalories(categorized.breakfast + categorized.lunch + categorized.dinner);
+    });
 
-    // 소모 칼로리
-    axios.get(`http://localhost:8080/users/${userId}/burned-calories`)
-      .then(res => setBurnedCalories(res.data || 0))
-      .catch(err => {
-        console.error("운동 칼로리 불러오기 실패", err);
-        setBurnedCalories(0);
-      });
+    axios.get(`http://localhost:8080/users/${userId}/burned-calories`).then(res => setBurnedCalories(res.data || 0));
+    axios.get(`http://localhost:8080/api/exercise-types/today`, { params: { userId } }).then(res => setExerciseTypes(res.data));
   }, []);
 
   if (!user || todayCalories === null || burnedCalories === null) {
@@ -64,33 +62,103 @@ const Main = () => {
 
   const remainingCalories = todayCalories - burnedCalories;
 
+  const chartData = [
+    { name: '아침', kcal: mealCalories.breakfast },
+    { name: '점심', kcal: mealCalories.lunch },
+    { name: '저녁', kcal: mealCalories.dinner },
+    { name: '운동', kcal: burnedCalories },
+  ];
+
   return (
-    <div className="main-container">
-      <div className="user-info">
-        키 : {user.height}cm | 현재 몸무게 : {user.weight}kg | 목표 몸무게 : {user.goalWeight}kg |
-        도전 점수 : {user.challengeScore}점 | 🔥 잔여 칼로리 : {remainingCalories}kcal
-      </div>
+    <>
+      <div className="main-wrapper">
+        <div className="main-user-card">
+          <div className="main-user-info">
+            <h3>👤 {user.name}님의 피트니스 리포트</h3>
+            <p><strong>키</strong>: {user.height}cm | <strong>현재 몸무게</strong>: {user.weight}kg</p>
+            <p><strong>목표 몸무게</strong>: {user.goalWeight}kg | <strong>도전 점수</strong>:
+              <span className="main-badge">{user.challengeScore}점</span>
+            </p>
+            <div className="main-calories">
+              🔥 잔여 칼로리: {remainingCalories} kcal <br></br>
+              <span className="total-calories">(총 섭취: {todayCalories} kcal)</span>
+            </div>
+          </div>
 
-      <img src="/tiger.png" alt="호랑이" style={{ width: '150px' }} />
+          <div className="main-character-wrapper">
+            <img src={mainCharacterImages[user.profileImageUrl] || "/img/default.jpg"} alt="캐릭터" />
+          </div>
 
-      <div className="charts">
-        <div>
-          <h4>오늘 섭취 칼로리</h4>
-          <p>🍱 {todayCalories} kcal</p>
+          <div className="main-activity-section">
+            <div className="main-activity-title">오늘 한 운동</div>
+            <div className="main-exercise-icons">
+              {exerciseTypes.map((type, index) => (
+                <img
+                  key={index}
+                  src={typeIconMap[type] || "/icons/default.png"}
+                  alt={type}
+                />
+              ))}
+            </div>
+          </div>
         </div>
-        <div>
-          <h4>운동 칼로리</h4>
-          <p>🔥 총 소모 칼로리: {burnedCalories} kcal</p>
+
+      
+        <div className="main-graph-wrapper">
+        <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={chartData} margin={{ top: 20, right: 30, left: 0, bottom: 10 }} barSize={60}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" tick={{ fill: '#000000' }} tickLine={false} />
+              <YAxis domain={[0, 800]} />
+              <Tooltip />
+              <Legend
+                verticalAlign="top"
+                align="right"
+                content={() => (
+                  <div style={{
+                    display: 'flex', justifyContent: 'flex-end', marginBottom: '30px',
+                    fontSize: '13px', fontFamily: 'Noto Sans KR, Arial, sans-serif',
+                    gap: '10px', paddingRight: '20px', color: '#555'
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <div style={{ width: '10px', height: '10px', backgroundColor: '#82ca9d', borderRadius: '50%', marginRight: '6px' }}></div>
+                      식사
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <div style={{ width: '10px', height: '10px', backgroundColor: '#ff7f7f', borderRadius: '50%', marginRight: '6px' }}></div>
+                      운동
+                    </div>
+                  </div>
+                )}
+              />
+              <Bar dataKey="kcal" radius={[10, 10, 0, 0]} isAnimationActive label={{ position: 'top', fontSize: 12, fill: '#555' }}>
+                {chartData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={entry.name === '운동' ? '#ff7f7f' : '#82ca9d'}
+                  />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+
         </div>
       </div>
 
-      <div>
-        오늘 한 운동 :
-        <img src="/icon1.png" alt="운동1" />
-        <img src="/icon2.png" alt="운동2" />
-        <img src="/icon3.png" alt="운동3" />
-      </div>
-    </div>
+      
+      <footer className="main-footer">
+        <div className="main-footer-top">
+          <div className="main-footer-content">
+            <img src="/img/footer1.png" alt="Footer Icon 1" className="main-footer-icon" />
+            <span className="main-footer-text">더 조은 아카데미 | 4조 칼로몽</span>
+            <img src="/img/footer2.png" alt="Footer Icon 2" className="main-footer-icon" />
+          </div>
+        </div>
+        <div className="main-footer-bottom">
+          <p>Made by: 이하늘 한정환 김기찬 안순화 한수연</p>
+        </div>
+      </footer>
+    </>
   );
 };
 

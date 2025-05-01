@@ -1,0 +1,226 @@
+/* 기본 라이트 모드 스타일 */
+.challenge-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6fa;
+  color: #1a2b49;
+}
+
+h1, h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 800;
+}
+
+.difficulty-filter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  padding-right: 10px;
+}
+
+.difficulty-filter label {
+  font-weight: bold;
+  color: #34495e;
+}
+
+.difficulty-filter select {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.challenge-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.challenge-card {
+  flex: 1 1 22%;
+  max-width: 22%;
+  min-width: 0;
+  background: linear-gradient(to bottom right, #fefefe, #f0f3f7);
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  padding: 5px;
+  transition: all 0.3s ease;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+  position: relative;
+}
+
+.challenge-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.challenge-card h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;  
+  border-bottom: 1px solid #dbe2ef;
+  padding-bottom: 6px;
+}
+
+.challenge-card p {
+  margin: 6px 0;
+  font-size: 0.95rem;
+}
+
+.challenge-card button {
+  margin-top: 12px;
+  padding: 8px 16px;
+  background: linear-gradient(to right, #007bff, #0056b3);
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  margin-left: 8px;
+}
+
+.challenge-card button:hover {
+  background: linear-gradient(to right, #0056b3, #00408a);
+  transform: scale(1.05);
+}
+
+.challenge-card.in-progress {
+  background: linear-gradient(to bottom right, #e8f0ff, #dbefff);
+  border: 2px solid #3d7bff;
+}
+
+.challenge-form {
+  max-width: 500px;
+  margin: 0 auto 60px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+}
+
+.challenge-form label {
+  margin: 12px 0 6px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.challenge-form input,
+.challenge-form select {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.challenge-form button {
+  margin-top: 20px;
+  background-color: #28a745;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.challenge-form button:hover {
+  background-color: #1e8038;
+}
+
+@media (max-width: 992px) {
+  .challenge-card {
+    flex: 0 0 calc(50% - 20px);
+  }
+}
+
+@media (max-width: 576px) {
+  .challenge-card {
+    flex: 0 0 100%;
+  }
+}
+
+/* 다크모드 */
+.dark-mode .challenge-container {
+  background-color: #1e1e2f;
+  color: #e0e0e0;
+}
+
+.dark-mode h1, .dark-mode h2 {
+  color: #f0f0f0;
+}
+
+.dark-mode .difficulty-filter label {
+  color: #dcdcdc;
+}
+
+.dark-mode .difficulty-filter select {
+  background-color: #2c2c3a;
+  color: #f0f0f0;
+  border: 1px solid #555;
+}
+
+.dark-mode .challenge-card {
+  background: linear-gradient(to bottom right, #2c2c3a, #3a3a4d);
+  border: 1px solid #555;
+}
+
+.dark-mode .challenge-card h3 {
+  color: #dbe2ef;
+  border-bottom: 1px solid #444;
+}
+
+.dark-mode .challenge-card p {
+  color: #ccc;
+}
+
+.dark-mode .challenge-card.in-progress {
+  background: linear-gradient(to bottom right, #354a5f, #2c3b50);
+  border: 2px solid #5c8eff;
+}
+
+.dark-mode .challenge-form {
+  background-color: #2b2b3d;
+  color: #f0f0f0;
+}
+
+.dark-mode .challenge-form label {
+  color: #ccc;
+}
+
+.dark-mode .challenge-form input,
+.dark-mode .challenge-form select {
+  background-color: #3a3a4d;
+  color: #f0f0f0;
+  border: 1px solid #666;
+}
+
+.dark-mode .challenge-form button {
+  background-color: #3cb371;
+}
+
+.dark-mode .challenge-form button:hover {
+  background-color: #2e8b57;
+}
+
+.dark-mode .challenge-card button {
+  background: linear-gradient(to right, #6699ff, #3366cc);
+}
+
+.dark-mode .challenge-card button:hover {
+  background: linear-gradient(to right, #3366cc, #264d99);
+}

@@ -15,12 +15,12 @@ const Calories = ({ userId }) => {
   const [pageGroup, setPageGroup] = useState(0);
   const itemsPerPage = 10;
 
-  // ✅ 한국 시간 기준 날짜 반환 함수
+
   const getKSTDateString = () => {
     const now = new Date();
     const utc = now.getTime() + now.getTimezoneOffset() * 60000;
     const kst = new Date(utc + 9 * 60 * 60 * 1000);
-    return kst.toISOString().split('T')[0]; // 'yyyy-mm-dd'
+    return kst.toISOString().split('T')[0];
   };
 
   useEffect(() => {
@@ -59,8 +59,9 @@ const Calories = ({ userId }) => {
 
   const handleSelectFood = (food) => {
     setSelectedFood(food);
-    setGrams('');
-    setCalories(0);
+    setGrams(200);
+    const cal = calculateCalories(food, 200);
+    setCalories(cal);
   };
 
   const addFoodToMeal = (meal) => {
@@ -86,7 +87,7 @@ const Calories = ({ userId }) => {
 
   const saveFoodLog = () => {
     const todayStr = getKSTDateString();
-    const today = new Date(todayStr); // 자정 기준 Date 객체로 저장
+    const today = new Date(todayStr); 
   
     const allFoods = Object.entries(meals).flatMap(([mealName, foods]) =>
       foods.map((food) => ({
@@ -170,12 +171,12 @@ const Calories = ({ userId }) => {
       {selectedFood && (
         <>
           <div className="input-calorie-block">
-            <input type="number" className="gram-input" placeholder="그램 수 입력" value={grams} onChange={handleGramsChange} />
+            <input type="number" className="gram-input" placeholder="그램 수 입력" value={grams} onChange={handleGramsChange} step="50"/>
             <p className="calculated-kcal">계산된 칼로리: {calories ? `${Math.round(calories)} kcal` : "-"}</p>
             <div className="meal-buttons">
-              <button onClick={() => addFoodToMeal("아침")}>아침에 추가</button>
-              <button onClick={() => addFoodToMeal("점심")}>점심에 추가</button>
-              <button onClick={() => addFoodToMeal("저녁")}>저녁에 추가</button>
+              <button type="button" onClick={() => addFoodToMeal("아침")}>🥪 아침 추가</button>
+              <button type="button" onClick={() => addFoodToMeal("점심")}>🍱 점심 추가</button>
+              <button type="button" onClick={() => addFoodToMeal("저녁")}>🍲 저녁 추가</button>
             </div>
           </div>
           <div className="selected-food-container">

@@ -1,0 +1,130 @@
+/* Edit.css */
+
+.edit-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  gap: 1rem;
+  background-color: #f5f8fa;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  min-height: 500px;
+  position: relative;
+  margin-top: 50px;
+}
+
+.edit-container h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 30px;
+}
+
+.edit-container input,
+.edit-container textarea {
+  width: 95%;
+  padding: 14px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  outline: none;
+  transition: border 0.2s ease;
+  background-color: white;
+  color: #333;
+}
+
+.edit-container input:focus,
+.edit-container textarea:focus {
+  border-color: #3d509a;
+}
+
+.edit-container textarea {
+  min-height: 200px;
+  resize: vertical;
+}
+
+.button-row {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.8rem;
+  align-self: flex-end;
+  padding-top: 2rem;
+}
+
+.cancel-btn,
+.update-btn {
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  min-width: 90px;
+}
+
+.cancel-btn {
+  background-color: #ccc;
+  color: #333;
+}
+
+.cancel-btn:hover {
+  background-color: #b0b0b0;
+}
+
+.update-btn {
+  background-color: #2e5aac;
+  color: white;
+}
+
+.update-btn:hover {
+  background-color: #1f4694;
+}
+
+
+/* 🌙 다크모드 스타일 */
+@media (prefers-color-scheme: dark) {
+  .edit-container {
+    background-color: #1e1e1e;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+  }
+
+  .edit-container h2 {
+    color: #e0e0e0;
+  }
+
+  .edit-container input,
+  .edit-container textarea {
+    background-color: #2a2a2a;
+    color: #f0f0f0;
+    border: 1px solid #444;
+    box-shadow: none;
+  }
+
+  .edit-container input:focus,
+  .edit-container textarea:focus {
+    border-color: #4f6fd6;
+  }
+
+  .cancel-btn {
+    background-color: #666;
+    color: #f0f0f0;
+  }
+
+  .cancel-btn:hover {
+    background-color: #555;
+  }
+
+  .update-btn {
+    background-color: #4f6fd6;
+    color: white;
+  }
+
+  .update-btn:hover {
+    background-color: #3d5ec2;
+  }
+}

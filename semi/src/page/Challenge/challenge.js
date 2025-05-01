@@ -10,6 +10,9 @@ const Challenge = () => {
   const [pointReward, setPointReward] = useState(50);
   const [userId, setUserId] = useState("");
 
+  const [isExpanded, setIsExpanded] = useState(false);
+  const visibleChallenges = isExpanded ? challenges : challenges.slice(0, 8);
+
   useEffect(() => {
     const loggedInUserId = localStorage.getItem("userId");
     if (loggedInUserId) {
@@ -41,7 +44,7 @@ const Challenge = () => {
     setDifficulty(e.target.value);
   };
 
-  const handleChallengeClick = (challengeId, challengeReward) => {
+  const handleChallengeClick = (challengeId) => {
     if (!userId) {
       alert("로그인된 사용자 정보가 없습니다.");
       return;
@@ -67,14 +70,12 @@ const Challenge = () => {
       alert("로그인된 사용자 정보가 없습니다.");
       return;
     }
-  
+
     axios.post(`http://localhost:8080/challenges/${challengeId}/complete`, null, {
       params: { userId }
     })
       .then(() => {
         alert('챌린지 성공!');
-  
-        // 🎯 여기가 핵심
         axios.get(`http://localhost:8080/challenges/participating`, { params: { userId } })
           .then(res => setParticipatingChallenges(res.data))
           .catch(err => console.error("참여 목록 새로고침 실패:", err));
@@ -84,13 +85,13 @@ const Challenge = () => {
         alert("챌린지 성공 처리 실패");
       });
   };
-  
 
   const handleFailure = (challengeId) => {
     if (!userId) {
       alert("로그인된 사용자 정보가 없습니다.");
       return;
     }
+
     axios.post(`http://localhost:8080/challenges/${challengeId}/fail`, null, {
       params: { userId }
     })
@@ -173,14 +174,14 @@ const Challenge = () => {
 
       <h2>전체 챌린지 목록</h2>
       <div className="challenge-list">
-        {challenges.length > 0 ? (
-          challenges.map(challenge => (
+        {visibleChallenges.length > 0 ? (
+          visibleChallenges.map(challenge => (
             <div key={challenge.challengeId} className="challenge-card">
               <h3>{challenge.title}</h3>
               <p>난이도: {challenge.difficulty}</p>
-              <p>상태: {challenge.status || "대기 중"}</p>
+              <p>상태: {challenge.status || "진행 중"}</p>
               <p>리워드 점수: {challenge.pointReward || 0}</p>
-              <button onClick={() => handleChallengeClick(challenge.challengeId, challenge.pointReward)}>
+              <button onClick={() => handleChallengeClick(challenge.challengeId)}>
                 도전하기
               </button>
             </div>
@@ -189,6 +190,15 @@ const Challenge = () => {
           <p>등록된 챌린지가 없습니다.</p>
         )}
       </div>
+
+      {challenges.length > 8 && (
+        <div className="more-button-container2">
+          <button className="toggle-btn2" onClick={() => setIsExpanded(!isExpanded)}>
+            {isExpanded ? "접기 ▲" : "더 보기 ▼"}
+          </button>
+        </div>
+      )}
+
 
       <h2>챌린지 추가</h2>
       <form className="challenge-form" onSubmit={handleSubmit}>
