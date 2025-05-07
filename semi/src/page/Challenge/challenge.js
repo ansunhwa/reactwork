@@ -179,7 +179,7 @@ const Challenge = () => {
             <div key={challenge.challengeId} className="challenge-card">
               <h3>{challenge.title}</h3>
               <p>난이도: {challenge.difficulty}</p>
-              <p>상태: {challenge.status || "진행 중"}</p>
+              <p>상태: {challenge.status || "대기 중"}</p>
               <p>리워드 점수: {challenge.pointReward || 0}</p>
               <button onClick={() => handleChallengeClick(challenge.challengeId)}>
                 도전하기
@@ -201,7 +201,7 @@ const Challenge = () => {
 
 
       <h2>챌린지 추가</h2>
-      <form className="challenge-form" onSubmit={handleSubmit}>
+      <form className="challenge-form" onSubmit={handleSubmit}> 
         <label>챌린지 제목:</label>
         <input
           type="text"
@@ -209,7 +209,6 @@ const Challenge = () => {
           onChange={(e) => setTitle(e.target.value)}
           required
         />
-
         <label>난이도:</label>
         <select
           value={difficulty}
@@ -221,7 +220,6 @@ const Challenge = () => {
           <option value="중급">중급</option>
           <option value="고급">고급</option>
         </select>
-
         <label>리워드 점수:</label>
         <input
           type="number"
@@ -229,7 +227,6 @@ const Challenge = () => {
           onChange={(e) => setPointReward(e.target.value)}
           required
         />
-
         <button type="submit">챌린지 추가</button>
       </form>
     </div>
